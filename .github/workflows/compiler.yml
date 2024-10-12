@@ -37,7 +37,7 @@ jobs:
        run: |
           git clone --depth=1 --recurse-submodules https://github.com/anuken/mindustry
           cd mindustry
-          gsed -i 's/applicationId "io.anuke.mindustry"/applicationId "io.anuke.mindustry.be"/g' ios/build.gradle
+          gsed -i 's/"io.anuke.mindustry"/"io.anuke.mindustry.be"/g' ios/build.gradle
           gsed -i "s/Mindustry/Mindustry BE/g" ios/build.gradle
           chmod +x ./gradlew
           ./gradlew pack -PnoLocalArc=true
