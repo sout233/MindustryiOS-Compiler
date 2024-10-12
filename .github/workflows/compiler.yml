@@ -27,7 +27,7 @@ jobs:
 
      - name: Get Arc natives for iOS
        run : |
-         mkdir -p /Users/runner/work/Arc/natives
+         mkdir -p Arc/natives
          wget https://github.com/sonphantrung/Arc/releases/download/ios-natives/arccoreios.zip
          unzip arccoreios.zip -d Arc/natives
     
