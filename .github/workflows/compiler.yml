@@ -39,7 +39,7 @@ jobs:
           gsed -i 's/applicationId "io.anuke.mindustry"/applicationId "io.anuke.mindustry.be"/g' ios/build.gradle
           gsed -i "s/Mindustry/Mindustry BE/g" ios/build.gradle
           chmod +x ./gradlew
-          ./gradlew pack
+          ./gradlew pack -PnoLocalArc=true
           ./gradlew --stacktrace :ios:deploy -Probovm.iosSkipSigning=true -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge -PnoLocalArc=true
      - uses: actions/upload-artifact@v4
        with:
