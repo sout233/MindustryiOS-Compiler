@@ -7,7 +7,7 @@ on:
 
 jobs:
   ios-comp:
-   runs-on: macos-latest
+   runs-on: macos-12
    steps:
      - uses: actions/checkout@v4
      - name: Setup JDK 17
@@ -21,15 +21,25 @@ jobs:
      - name: Setup Xcode
        uses: maxim-lobanov/setup-xcode@v1.4.1
        with:
-          xcode-version: latest-stable
+          xcode-version: 14.2
+     - name: Set env
+       run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+     - name: Get Arc natives for iOS
+       run : |
+         mkdir -p /Users/runner/work/Arc/natives
+         wget https://github.com/sonphantrung/Arc/releases/download/ios-natives/arccoreios.zip
+         unzip arccoreios.zip -d Arc/natives
     
      - name: Build
        run: |
           git clone --depth=1 --recurse-submodules https://github.com/anuken/mindustry
           cd mindustry
+          sed -i 's/applicationId "io.anuke.mindustry"/applicationId "io.anuke.mindustry.be"/g' ios/build.gradle
+          sed -i "s/Mindustry/Mindustry BE/g" ios/build.gradle
           chmod +x ./gradlew
           ./gradlew pack
-          ./gradlew --stacktrace :ios:deploy -Probovm.iosSkipSigning=true
+          ./gradlew --stacktrace :ios:deploy -Probovm.iosSkipSigning=true -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge
      - uses: actions/upload-artifact@v4
        with:
         name: mindustry
