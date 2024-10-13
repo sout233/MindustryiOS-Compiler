@@ -35,7 +35,7 @@ jobs:
     
      - name: Build
        run: |
-          git clone --depth=1 --recurse-submodules https://github.com/anuken/mindustry
+          git clone --depth=1 --recurse-submodules -b ios-deploy https://github.com/sonphantrung/mindustry
           cd mindustry
           gsed -i 's/io.anuke.mindustry/io.anuke.mindustry.be/g' ios/build.gradle
           gsed -i "s/Mindustry/Mindustry BE/g" ios/build.gradle
