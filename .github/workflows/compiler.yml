@@ -29,12 +29,12 @@ jobs:
        run: |
           git clone --depth=1 --recurse-submodules -b ios-deploy https://github.com/sonphantrung/mindustry
           cd mindustry
+          echo "BODY=$(git rev-parse HEAD)" >> $GITHUB_ENV
           gsed -i 's/io.anuke.mindustry/io.anuke.mindustry.be/g' ios/build.gradle
           gsed -i "s/Mindustry/Mindustry BE/g" ios/build.gradle
           chmod +x ./gradlew
           ./gradlew pack -PnoLocalArc=true
           ./gradlew --stacktrace :ios:deploy -Probovm.iosSkipSigning=true -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge -PnoLocalArc=true -PshowCommitHash=true
-     - uses: actions/upload-artifact@v4
-       with:
-        name: mindustry
-        path: mindustry/ios/build/robovm/IOSLauncher.ipa
+     - name: Release
+       run: |
+          gh release create ${{ github.ref }} --notes ${{ env.BODY }} --title ${{ github.ref }}
