@@ -12,6 +12,7 @@ env:
 jobs:
   ios-comp:
    runs-on: macos-13
+   permissions: write-all
    steps:
      - uses: actions/checkout@v4
      - name: Setup Xcode
