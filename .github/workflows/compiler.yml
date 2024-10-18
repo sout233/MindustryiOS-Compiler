@@ -6,6 +6,9 @@ on:
       - '*'
   workflow_dispatch:
 
+env:
+  GH_TOKEN: ${{ github.token }}
+
 jobs:
   ios-comp:
    runs-on: macos-13
