@@ -42,4 +42,4 @@ jobs:
      - name: Release
        run: |
           gh release create ${{ env.RELEASE_VERSION }} --notes ${{ env.BODY }} --title ${{ env.RELEASE_VERSION }}
-          gh release upload mindustry/ios/build/robovm/IOSLauncher.ipa
+          gh release upload ${{ env.RELEASE_VERSION }} mindustry/ios/build/robovm/IOSLauncher.ipa
