@@ -41,4 +41,5 @@ jobs:
           ./gradlew --stacktrace :ios:deploy -Probovm.iosSkipSigning=true -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge -PnoLocalArc=true -PshowCommitHash=true
      - name: Release
        run: |
-          gh release create ${{ github.ref }} --notes ${{ env.BODY }} --title ${{ github.ref }}
+          gh release create ${{ env.RELEASE_VERSION }} --notes ${{ env.BODY }} --title ${{ env.RELEASE_VERSION }}
+          gh release upload mindustry/ios/build/robovm/IOSLauncher.ipa
